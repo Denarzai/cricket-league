@@ -79,7 +79,7 @@ public/               SVG images (team logos, player pictures)
 
 - **Git repository:** https://github.com/Denarzai/cricket-league
 - **Video demo:** _add Google Drive / YouTube (Unlisted) link here_. Sharing must be "Anyone with the link, Viewer".
-- **Vercel (bonus):** _add live link here if deployed_
+- **Vercel (bonus):** https://cricket-league-tau.vercel.app/
 
 ## AI tools used
 
