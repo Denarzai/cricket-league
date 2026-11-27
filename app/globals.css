@@ -1,0 +1,101 @@
+@import "tailwindcss";
+
+/*
+  Our colour palette and fonts, defined ONCE here.
+  Tailwind turns each one into classes, e.g. --color-night -> bg-night, text-night, border-night.
+  Idea: a night match under the floodlights.
+*/
+@theme {
+  --color-night: #0f1e46;       /* night sky: navbar, hero, footer, table heads */
+  --color-night-light: #1c3170; /* lighter night for hover and raised parts */
+  --color-gold: #ffc93c;        /* floodlight gold: main buttons, active links, points */
+  --color-gold-dark: #e8ac0c;   /* gold on hover */
+  --color-pitch: #17804b;       /* outfield green: wins and success messages */
+  --color-ball: #d7263d;        /* cricket-ball red: errors and "Remove" */
+  --color-mist: #eef2f9;        /* page background */
+  --color-orange-cap: #c2410c;  /* IPL Orange Cap (most runs) */
+  --color-purple-cap: #6d28d9;  /* IPL Purple Cap (most wickets) */
+}
+
+/* The fonts come from next/font in layout.tsx (it sets --font-barlow and --font-saira) */
+@theme inline {
+  --font-sans: var(--font-barlow), system-ui, sans-serif;     /* body text */
+  --font-display: var(--font-saira), system-ui, sans-serif;   /* headings and big numbers */
+}
+
+/* Headings use the condensed "scoreboard" font everywhere */
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  letter-spacing: 0.01em;
+}
+
+/* Night sky with two floodlight glows at the top. Used by the Home hero and the 404 page. */
+.floodlights {
+  background:
+    radial-gradient(circle at 8% -10%, rgb(255 201 60 / 0.35), transparent 40%),
+    radial-gradient(circle at 92% -10%, rgb(255 201 60 / 0.25), transparent 35%),
+    repeating-linear-gradient(90deg, transparent 0 60px, rgb(255 255 255 / 0.025) 60px 120px),
+    var(--color-night);
+}
+
+/*
+  Our own animations. Each --animate-* line becomes a Tailwind class:
+  --animate-rise -> animate-rise, --animate-pop -> animate-pop, and so on.
+  We always write them as motion-safe:animate-rise, so people who turn off
+  animations in their system settings (prefers-reduced-motion) do not see them.
+*/
+@theme {
+  --animate-rise: rise 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;   /* fade in and slide up */
+  --animate-pop: pop 0.35s ease-out both;                           /* grow a little, then settle */
+  --animate-shake: shake 0.4s ease-in-out both;                     /* side to side, for errors */
+  --animate-stamp: stamp 0.5s cubic-bezier(0.3, 1.5, 0.5, 1) both;  /* lands like a rubber stamp */
+  --animate-drop: drop 0.5s ease-out both;                          /* team stripe pieces drop in */
+  --animate-glow: glow 3s ease-in-out infinite;                     /* floodlights slowly brighten and dim */
+  --animate-grow: grow 0.6s ease-out both;                          /* a line grows from left to right */
+
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes pop {
+    0%   { transform: scale(0.85); opacity: 0; }
+    60%  { transform: scale(1.06); opacity: 1; }
+    100% { transform: scale(1); }
+  }
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25%      { transform: translateX(-6px); }
+    75%      { transform: translateX(6px); }
+  }
+  @keyframes stamp {
+    from { opacity: 0; transform: scale(1.4) rotate(-8deg); }
+    to   { opacity: 1; transform: scale(1) rotate(0); }
+  }
+  @keyframes drop {
+    from { transform: scaleY(0); }
+    to   { transform: scaleY(1); }
+  }
+  @keyframes grow {
+    from { transform: scaleX(0); }
+    to   { transform: scaleX(1); }
+  }
+  @keyframes glow {
+    0%, 100% { opacity: 0.55; }
+    50%      { opacity: 1; }
+  }
+}
+
+/* Extra floodlight beams laid over the Home hero. animate-glow makes them flicker slowly. */
+.floodlight-glow {
+  background:
+    radial-gradient(ellipse at 8% 0%, rgb(255 201 60 / 0.3), transparent 45%),
+    radial-gradient(ellipse at 92% 0%, rgb(255 201 60 / 0.22), transparent 40%);
+}
+
+/* Visible focus ring for keyboard users on every link, button and input */
+:focus-visible {
+  outline: 3px solid var(--color-gold);
+  outline-offset: 2px;
+}
